@@ -41,7 +41,7 @@ form fieldset {
 form legend {
   width: 30%;
   padding: 0.5rem 1rem;
-  left: -1px;
+  left: 1rem;
   top: -1.4rem;
   position: absolute;
   font-size: inherit;
