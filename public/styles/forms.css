@@ -44,6 +44,8 @@ form legend {
   left: -1px;
   top: -1.4rem;
   position: absolute;
+  font-size: inherit;
+  text-align: center;
 }
 
 form label {
