@@ -9,6 +9,7 @@ import Register from "./components/Register";
 import MyPets from "./components/MyPets";
 import CreateEditPet from "./components/CreateEditPet";
 import PetDetails from "./components/PetDetails";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
 
