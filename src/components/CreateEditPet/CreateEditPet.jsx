@@ -46,6 +46,11 @@ function CreatePet() {
         dispatch({ type: "description", payload: currentPet.description });
         dispatch({ type: "imageUrl", payload: currentPet.imageUrl });
         dispatch({ type: "type", payload: currentPet.type });
+      } else {
+        dispatch({ type: "name", payload: "" });
+        dispatch({ type: "description", payload: "" });
+        dispatch({ type: "imageUrl", payload: "" });
+        dispatch({ type: "type", payload: "" });
       }
     }
 
