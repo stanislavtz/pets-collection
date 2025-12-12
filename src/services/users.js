@@ -44,9 +44,15 @@ export async function register(email, password) {
 
     const data = await res.json();
 
-    localStorage.setItem("user-data", JSON.stringify(data));
+    const userData = {
+      _id: data._id,
+      email: data.email,
+      accessToken: data.accessToken,
+    };
 
-    return data;
+    localStorage.setItem("user-data", JSON.stringify(userData));
+
+    return userData;
   } catch (err) {
     return err;
   }
@@ -64,4 +70,11 @@ export async function logout(token) {
   } catch (err) {
     return err;
   }
+}
+
+export async function getUser(userId) {
+  const res = await fetch(`${BASE_URL}/users/${userId}`);
+  console.log(res);
+  const data = await res.json();
+  return data;
 }
