@@ -3,10 +3,14 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import ConfirmDelete from "../common/ConfirmDelete";
 
-import { getOne, remove } from "../../services/pets";
+import { getLikes, likePet, getOne, remove } from "../../services/pets";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function PetDetails() {
+  const [pet, setPet] = useState({});
+  const [petLikes, setPetLikes] = useState(0);
+  const [showModalDialog, setShowModalDialog] = useState(false);
+
   const {
     user: { _id: userId, accessToken },
   } = useAuthContext();
@@ -14,9 +18,6 @@ function PetDetails() {
   const { petId } = useParams();
 
   const navigate = useNavigate();
-
-  const [pet, setPet] = useState({});
-  const [showModalDialog, setShowModalDialog] = useState(false);
 
   useEffect(() => {
     async function getPet() {
@@ -27,6 +28,15 @@ function PetDetails() {
     getPet();
   }, [petId]);
 
+  useEffect(() => {
+    async function getPetLikes() {
+      const likes = await getLikes(pet._id, pet._ownerId);
+      setPetLikes(likes);
+    }
+
+    getPetLikes();
+  }, [pet]);
+
   async function petDeleteHandler() {
     await remove(petId, accessToken);
     setShowModalDialog(false);
@@ -35,6 +45,12 @@ function PetDetails() {
 
   function showDialogHandler() {
     setShowModalDialog(true);
+  }
+
+  async function likeClickHandler() {
+    console.log("LIKED: ");
+    // const like = await likePet(petId, accessToken);
+    // console.log(like);
   }
 
   const ownerButtons = (
@@ -49,9 +65,9 @@ function PetDetails() {
   );
 
   const userButtons = (
-    <a className="button" href="#">
+    <button className="button" onClick={likeClickHandler}>
       Like
-    </a>
+    </button>
   );
 
   return (
@@ -74,7 +90,7 @@ function PetDetails() {
 
             <div className="likes">
               <img className="hearts" src="/images/heart.png" />
-              <span id="total-likes">Likes: {pet.likes?.length}</span>
+              <span id="total-likes">Likes: {petLikes}</span>
             </div>
           </div>
         </div>

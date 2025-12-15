@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer id="site-footer">
-      <p>@PetMyPet</p>
+      <p>@ReactMyPet</p>
     </footer>
   );
 }

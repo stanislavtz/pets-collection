@@ -73,3 +73,27 @@ export async function remove(petId, token) {
     console.log(err);
   }
 }
+
+export async function getLikes(petId, _ownerId) {
+  const res = await fetch(
+    `${BASE_URL}/data/likes?where=petId%3D%22${petId}%22&distinct=${_ownerId}&count`
+  );
+
+  const data = await res.json();
+  return data;
+}
+
+export async function likePet(petId, token) {
+  const res = await fetch(`${BASE_URL}/data/likes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Authorization": token,
+    },
+    body: JSON.stringify({ petId }),
+  });
+
+  const data = res.json();
+
+  return data;
+}
