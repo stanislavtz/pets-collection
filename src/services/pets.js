@@ -10,6 +10,23 @@ export async function getAll() {
   }
 }
 
+export async function getAllMyPets(userId) {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/data/pets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`
+    );
+    if (!res.ok) {
+      throw new Error("Something went wrong. Try again later");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getOne(id) {
   try {
     const res = await fetch(`${BASE_URL}/data/pets/${id}`);

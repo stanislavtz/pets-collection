@@ -1,31 +1,32 @@
+import { useState, useEffect } from "react";
+
+import { useAuthContext } from "../../contexts/AuthContext";
+import { getAllMyPets } from "../../services/pets";
+
+import PetsList from "../PetsList";
+
 function MyPets() {
+  const [myPets, setMyPets] = useState([]);
+  const { user } = useAuthContext();
+
+  const userId = user._id;
+
+  useEffect(() => {
+    async function getMyPets() {
+      const petsData = await getAllMyPets(userId);
+      setMyPets(petsData);
+    }
+
+    getMyPets();
+  }, [userId]);
+
   return (
     <section id="my-pets-page" className="my-pets">
       <h1>My Pets</h1>
-      <ul className="my-pets-list">
-        <li className="otherPet">
-          <h3>Name: Milo</h3>
-          <p>Type: dog</p>
-          <p className="img">
-            <img src="/images/dog.png" />
-          </p>
-          <a className="button" href="#">
-            Details
-          </a>
-        </li>
-        <li className="otherPet">
-          <h3>Name: Tom</h3>
-          <p>Type: cat</p>
-          <p className="img">
-            <img src="/images/cat1.png" />
-          </p>
-          <a className="button" href="#">
-            Details
-          </a>
-        </li>
-      </ul>
 
-      <p className="no-pets">No pets in database!</p>
+      <PetsList pets={myPets} />
+
+      {myPets.length === 0 && <p className="no-pets">No pets in database!</p>}
     </section>
   );
 }
