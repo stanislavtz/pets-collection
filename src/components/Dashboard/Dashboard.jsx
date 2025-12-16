@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAll } from "../../services/pets";
 
 import PetCard from "../PetCard";
+import PetsList from "../PetsList";
 
 function Dashboard() {
   const [pets, setPets] = useState([]);
@@ -35,13 +36,7 @@ function Dashboard() {
         <p className="no-pets">Something went wrong. Try again later!</p>
       )}
 
-      {!loading && pets.length > 0 && (
-        <ul className="other-pets-list">
-          {pets.map((pet) => (
-            <PetCard key={pet._id} pet={pet} />
-          ))}
-        </ul>
-      )}
+      {!loading && pets.length > 0 && <PetsList pets={pets} />}
 
       {!loading && !error && pets.length === 0 && (
         <p className="no-pets">No pets in database!</p>
