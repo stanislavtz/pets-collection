@@ -32,7 +32,7 @@ function CreatePet() {
     name: "",
     description: "",
     imageUrl: "",
-    type: "Cat",
+    type: "cat",
   });
 
   const { name, description, imageUrl, type } = state;
@@ -50,7 +50,7 @@ function CreatePet() {
         dispatch({ type: "name", payload: "" });
         dispatch({ type: "description", payload: "" });
         dispatch({ type: "imageUrl", payload: "" });
-        dispatch({ type: "type", payload: "" });
+        dispatch({ type: "type", payload: "cat" });
       }
     }
 
@@ -62,6 +62,7 @@ function CreatePet() {
     // const formData = new FormData(e.currentTarget);
     // const { name, type, description, imageUrl } = Object.fromEntries(formData);
 
+    console.log("CREATE");
     if (name && description && imageUrl && type) {
       if (!petId) {
         await create({ name, description, imageUrl, type }, token);
