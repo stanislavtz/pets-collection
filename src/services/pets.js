@@ -97,6 +97,17 @@ export async function getLikes(petId, _ownerId) {
   );
 
   const data = await res.json();
+
+  return data;
+}
+
+export async function getUserLike(petId, userId) {
+  const res = await fetch(
+    `${BASE_URL}/data/likes?where=petId%3D%22${petId}%22%20and%20_ownerId%3D%22${userId}%22&count`
+  );
+
+  const data = await res.json();
+
   return data;
 }
 

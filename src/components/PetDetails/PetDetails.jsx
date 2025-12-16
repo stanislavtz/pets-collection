@@ -3,12 +3,19 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import ConfirmDelete from "../common/ConfirmDelete";
 
-import { getLikes, likePet, getOne, remove } from "../../services/pets";
+import {
+  getLikes,
+  likePet,
+  getOne,
+  remove,
+  getUserLike,
+} from "../../services/pets";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function PetDetails() {
   const [pet, setPet] = useState({});
   const [petLikes, setPetLikes] = useState(0);
+  const [userLike, setUserLike] = useState(1);
   const [showModalDialog, setShowModalDialog] = useState(false);
 
   const {
@@ -37,6 +44,15 @@ function PetDetails() {
     getPetLikes();
   }, [pet]);
 
+  useEffect(() => {
+    async function getUserLikeCount() {
+      const like = await getUserLike(petId, userId);
+      setUserLike(like);
+    }
+
+    getUserLikeCount();
+  }, [petId, userId]);
+
   async function petDeleteHandler() {
     await remove(petId, accessToken);
     setShowModalDialog(false);
@@ -49,8 +65,10 @@ function PetDetails() {
 
   async function likeClickHandler() {
     console.log("LIKED: ");
-    // const like = await likePet(petId, accessToken);
-    // console.log(like);
+    console.log(pet);
+    const petOwner = "get pet owner by pet._ownerId"; // The owner will includes accessToken, that is needed for add likes
+    const like = await likePet(petId, petOwner.accessToken);
+    console.log(like);
   }
 
   const ownerButtons = (
@@ -86,7 +104,12 @@ function PetDetails() {
           </p>
 
           <div className="actions">
-            {userId && (userId === pet._ownerId ? ownerButtons : userButtons)}
+            {userId &&
+              (userId === pet._ownerId
+                ? ownerButtons
+                : userLike === 0
+                ? userButtons
+                : null)}
 
             <div className="likes">
               <img className="hearts" src="/images/heart.png" />
