@@ -27,46 +27,13 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/logout"
-              element={
-                <PrivateRoute>
-                  <Logout />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/my-pets"
-              element={
-                <PrivateRoute>
-                  <MyPets />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/create"
-              element={
-                <PrivateRoute>
-                  <CreateEditPet />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/pets/:petId"
-              element={
-                <PrivateRoute>
-                  <PetDetails />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/pets/edit/:petId"
-              element={
-                <PrivateRoute>
-                  <CreateEditPet />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/pets/:petId" element={<PetDetails />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/my-pets" element={<MyPets />} />
+              <Route path="/create" element={<CreateEditPet />} />
+              <Route path="/pets/edit/:petId" element={<CreateEditPet />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
           </Routes>
         </main>
 

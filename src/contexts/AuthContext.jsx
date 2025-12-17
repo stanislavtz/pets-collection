@@ -25,8 +25,13 @@ export function AuthContextProvider({ children }) {
   function userLogout() {
     setUser(initialUserValue);
   }
+
+  const isAuthenticated = user.email;
+
   return (
-    <AuthContext.Provider value={{ user, userLogin, userLogout }}>
+    <AuthContext.Provider
+      value={{ user, userLogin, userLogout, isAuthenticated }}
+    >
       {children}
     </AuthContext.Provider>
   );
