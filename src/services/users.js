@@ -71,10 +71,3 @@ export async function logout(token) {
     return err;
   }
 }
-
-export async function getUser(userId) {
-  const res = await fetch(`${BASE_URL}/users/${userId}`);
-  console.log(res);
-  const data = await res.json();
-  return data;
-}

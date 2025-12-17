@@ -10,12 +10,13 @@ import {
   remove,
   getUserLike,
 } from "../../services/pets";
+
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function PetDetails() {
   const [pet, setPet] = useState({});
   const [petLikes, setPetLikes] = useState(0);
-  const [userLike, setUserLike] = useState(1);
+  const [userLike, setUserLike] = useState(0);
   const [showModalDialog, setShowModalDialog] = useState(false);
 
   const {
@@ -64,11 +65,10 @@ function PetDetails() {
   }
 
   async function likeClickHandler() {
-    console.log("LIKED: ");
-    console.log(pet);
-    const petOwner = "get pet owner by pet._ownerId"; // The owner will includes accessToken, that is needed for add likes
-    const like = await likePet(petId, petOwner.accessToken);
-    console.log(like);
+    await likePet(petId, accessToken);
+
+    setPetLikes((likes) => likes + 1);
+    setUserLike(1);
   }
 
   const ownerButtons = (
