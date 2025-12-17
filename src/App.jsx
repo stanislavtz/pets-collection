@@ -29,10 +29,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/pets/:petId" element={<PetDetails />} />
             <Route element={<PrivateRoute />}>
+              <Route path="/logout" element={<Logout />} />
               <Route path="/my-pets" element={<MyPets />} />
               <Route path="/create" element={<CreateEditPet />} />
               <Route path="/pets/edit/:petId" element={<CreateEditPet />} />
-              <Route path="/logout" element={<Logout />} />
             </Route>
           </Routes>
         </main>

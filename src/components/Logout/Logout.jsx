@@ -1,9 +1,9 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import * as userService from "../../services/users";
 import { useAuthContext } from "../../contexts/AuthContext";
 
-function Login() {
+function Logout() {
   const {
     user: { accessToken },
     userLogout,
@@ -34,4 +34,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Logout;

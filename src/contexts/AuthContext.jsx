@@ -26,7 +26,7 @@ export function AuthContextProvider({ children }) {
     setUser(initialUserValue);
   }
 
-  const isAuthenticated = user.email;
+  const isAuthenticated = Boolean(user.email);
 
   return (
     <AuthContext.Provider
